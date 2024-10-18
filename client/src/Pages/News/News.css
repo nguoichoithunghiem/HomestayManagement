@@ -1,0 +1,156 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Italianno&display=swap");
+.news-khoiheader {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+.news-nenpage {
+  width: 100%;
+  height: 100vh;
+}
+
+.news-text-overlay {
+  font-family: Inter;
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 80px;
+  font-weight: bold;
+}
+.news-content1 {
+  display: flex;
+}
+.news-box1 {
+  height: 950px;
+  width: 850px;
+  /* background-color: rebeccapurple; */
+  margin-top: 50px;
+  margin-left: 30px;
+}
+.news-box2 {
+  height: 950px;
+  width: 600px;
+  background-color: #f3f6f6;
+  margin-top: 50px;
+  margin-left: 20px;
+}
+.news-box1 h1 {
+  font-family: inter;
+  font-weight: 600;
+}
+.news-box1 h2 {
+  color: rgb(118, 118, 118);
+  font-family: inter;
+  font-weight: 600;
+  font-size: medium;
+  margin-top: 15px;
+  line-height: 30px;
+}
+.news-box1 img {
+  width: 700px;
+  height: 450px;
+  margin-top: 15px;
+}
+.news-box1 hr {
+  margin-top: 60px;
+}
+.news-box2 {
+  font-family: inter;
+}
+.news-box2 input {
+  margin-top: 50px;
+  margin-left: 40px;
+  width: 500px;
+  height: 60px;
+  background-color: white;
+  font-size: medium;
+  font-weight: bold;
+  border: white;
+  padding-left: 20px;
+}
+.news-danhmuc {
+  margin-left: 40px;
+  margin-top: 50px;
+}
+.news-tintuc h2 {
+  margin-left: 40px;
+  margin-top: 20px;
+  color: #3b3b3b;
+  font-size: 15px;
+}
+.news-tintuc h1 {
+  margin-left: 400px;
+  margin-top: 20px;
+  color: #3b3b3b;
+  font-size: 15px;
+}
+.news-box2 hr {
+  width: 500px;
+  margin-left: 40px;
+  margin-top: 20px;
+}
+.news-tintuc {
+  display: flex;
+}
+.news-homestay {
+  display: flex;
+}
+.news-homestay h2 {
+  margin-left: 40px;
+  margin-top: 20px;
+  color: #3b3b3b;
+  font-size: 15px;
+}
+.news-homestay h1 {
+  margin-left: 375px;
+  margin-top: 20px;
+  color: #3b3b3b;
+  font-size: 15px;
+}
+.news-textbaiviet {
+  margin-left: 40px;
+  margin-top: 120px;
+}
+.news-contentbaiviet {
+  margin-top: 20px;
+  margin-left: 40px;
+}
+.news-contentbaiviet1 {
+  display: flex;
+}
+.news-textcontent {
+  margin-left: 10px;
+  font-family: inter;
+}
+.news-tieude {
+  font-weight: 400;
+  font-size: 32px;
+  margin-bottom: 55px;
+}
+.news-ngaythangphanquyen {
+  display: flex;
+  font-weight: bold;
+  color: #6d6d6d;
+}
+.news-textthang {
+  margin-top: 2px;
+  margin-left: 2px;
+  font-size: 18px;
+}
+.news-iconperson {
+  margin-left: 60px;
+}
+.news-textadmin {
+  margin-top: 2px;
+  margin-left: 2px;
+  font-size: 18px;
+}
+.news-contentbaiviet2 {
+  margin-top: 60px;
+}
+.news-danhsach {
+  margin-top: 50px;
+}

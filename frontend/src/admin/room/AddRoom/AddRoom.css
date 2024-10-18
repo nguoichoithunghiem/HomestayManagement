@@ -1,0 +1,79 @@
+.add-room {
+    width: 70%;
+    margin-left: max(5vw, 25px);
+    margin-top: 50px;
+    color: #6d6d6d;
+    font-size: 16px;
+}
+
+.add-room form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.add-img-upload img {
+    width: 120px;
+    cursor: pointer;
+    /* Thay đổi con trỏ khi hover */
+}
+
+.add-room-name,
+.add-room-description {
+    width: max(40%, 280px);
+}
+
+.add-room-name input,
+.add-room-description textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    /* Thêm đường viền cho input */
+    border-radius: 4px;
+    /* Bo góc cho input */
+}
+
+.add-room-price {
+    display: flex;
+    gap: 30px;
+}
+
+.add-room-price input {
+    max-width: 120px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    /* Thêm đường viền cho input */
+    border-radius: 4px;
+    /* Bo góc cho input */
+}
+
+.add-status {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-status select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    /* Thêm đường viền cho select */
+    border-radius: 4px;
+    /* Bo góc cho select */
+}
+
+.add-btn {
+    max-width: 120px;
+    border: none;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    /* Bo góc cho nút */
+    transition: background-color 0.3s;
+    /* Hiệu ứng chuyển màu nền */
+}
+
+/* Hiệu ứng hover cho nút */
+.add-btn:hover {
+    background-color: #333;
+    /* Thay đổi màu khi hover */
+}

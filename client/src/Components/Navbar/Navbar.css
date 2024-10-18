@@ -1,0 +1,71 @@
+.navbar {
+    background-color: rgba(105, 105, 105, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* Chia khoảng cách giữa logo và các link */
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.logo {
+    color: white;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.logo h2 {
+    margin: 0;
+    font-size: 14px;
+    color: #FFAA77;
+}
+
+.nav-links {
+    display: flex;
+    /* Sử dụng flex để căn giữa các link */
+}
+
+.nav-links a {
+    display: block;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    color: #FFAA77;
+}
+
+.nav-user {
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 14px;
+    /* Đặt kích thước chữ giống với Liên Hệ */
+    text-decoration: none;
+    /* Bỏ gạch chân */
+}
+
+.nav-logout {
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 14px;
+    /* Đặt kích thước chữ giống với Liên Hệ */
+    text-decoration: none;
+    /* Bỏ gạch chân */
+    cursor: pointer;
+    /* Đổi con trỏ khi hover */
+}
+
+.nav-logout:hover {
+    color: #FFAA77;
+    /* Thay đổi màu khi hover */
+}

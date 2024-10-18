@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Italianno&display=swap");
+.login-khoiheader {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+.login-nenpage {
+  width: 100%;
+  height: 100vh;
+}
+
+.login-text-overlay {
+  font-family: Inter;
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 80px;
+  font-weight: bold;
+}
+.login-body {
+  width: 1250px;
+  height: 500px;
+  background-color: #eaf1f1;
+  margin-top: 70px;
+  margin-left: 130px;
+  font-family: inter;
+  padding-top: 40px;
+  padding-left: 80px;
+  font-size: 30px;
+}
+.login-element {
+  width: 1100px;
+  height: 150px;
+  /* background-color: aqua; */
+  margin-top: 15px;
+}
+.login-tieude {
+  display: flex;
+}
+.login-kitu {
+  color: red;
+  font-size: 20px;
+}
+.login-timkiem {
+  margin-top: 15px;
+  width: 1100px;
+  height: 70px;
+  border-radius: 5px;
+  font-size: 30px;
+  padding-left: 10px;
+}
+.login-button {
+  width: 250px;
+  height: 80px;
+  background-color: #ff6b00;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  padding-top: 20px;
+  padding-left: 50px;
+  margin: auto;
+}
