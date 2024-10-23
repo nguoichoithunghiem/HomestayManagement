@@ -1,0 +1,79 @@
+.khoiheader {
+    text-align: center;
+    margin: 0;
+}
+
+.filter-bar {
+    margin-top: 50px;
+}
+
+.room-content {
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.room-box {
+    margin: 10px;
+    width: 460px;
+    position: relative;
+}
+
+.room-box img {
+    width: 460px;
+    height: auto;
+}
+
+.room-price {
+    width: 200px;
+    height: 50px;
+    color: white;
+    background-color: #ff6b00;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 13px;
+    position: absolute;
+    margin-top: -20px;
+    margin-left: 10px;
+}
+
+.room-boxdetail {
+    width: 430px;
+    height: 260px;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    margin-top: 330px;
+    margin-left: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    font-family: inter;
+}
+
+.room-location {
+    display: flex;
+    margin-top: 10px;
+}
+
+.room-location img {
+    width: 30px;
+    height: 30px;
+}
+
+.room-location div {
+    font-size: 20px;
+    margin-top: 2px;
+}
+
+.room-button-xemthem {
+    width: 100px;
+    height: 40px;
+    background-color: #ff6b00;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-top: 8px;
+    padding-left: 10px;
+    margin-top: 15px;
+}

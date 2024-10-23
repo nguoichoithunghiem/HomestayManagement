@@ -1,4 +1,3 @@
-// middleware/authMiddleware.js
 import jwt from "jsonwebtoken";
 
 // Middleware kiểm tra token và xác thực quyền admin
@@ -44,3 +43,21 @@ export const checkRole = (roles) => {
         next();
     };
 };
+
+// Middleware kiểm tra token cho người dùng mà không cần vai trò
+export const verifyToken = (req, res, next) => {
+    const token = req.headers.authorization?.split(" ")[1];
+
+    if (!token) {
+        return res.status(401).json({ success: false, message: "Không có quyền truy cập" });
+    }
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(403).json({ success: false, message: "Token không hợp lệ" });
+        }
+        req.user = decoded; // Lưu thông tin người dùng vào request
+        next();
+    });
+};
+

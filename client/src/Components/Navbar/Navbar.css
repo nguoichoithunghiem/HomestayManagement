@@ -3,7 +3,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* Chia khoảng cách giữa logo và các link */
     padding: 10px;
     position: fixed;
     top: 0;
@@ -28,7 +27,6 @@
 
 .nav-links {
     display: flex;
-    /* Sử dụng flex để căn giữa các link */
 }
 
 .nav-links a {
@@ -44,13 +42,49 @@
 }
 
 .nav-user {
+    position: relative;
+    /* Thêm để dropdown có thể căn chỉnh đúng */
     color: rgb(255, 255, 255);
     text-align: center;
     padding: 14px 20px;
     font-size: 14px;
-    /* Đặt kích thước chữ giống với Liên Hệ */
     text-decoration: none;
-    /* Bỏ gạch chân */
+    cursor: pointer;
+    /* Đổi con trỏ khi hover */
+}
+
+.dropdown-menu {
+    position: absolute;
+    /* Đặt dropdown ở vị trí tuyệt đối */
+    top: 100%;
+    /* Xuống dưới dòng chữ người dùng */
+    right: 0;
+    /* Căn phải */
+    background-color: rgba(255, 255, 255, 0.95);
+    /* Nền trắng với độ trong suốt */
+    color: black;
+    /* Màu chữ */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Đổ bóng cho dropdown */
+    z-index: 1000;
+    /* Đảm bảo dropdown nằm trên các phần tử khác */
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    border-radius: 4px;
+}
+
+.dropdown-menu a {
+    padding: 8px 12px;
+    /* Khoảng cách cho các liên kết trong dropdown */
+    text-decoration: none;
+    color: black;
+    /* Màu chữ trong dropdown */
+}
+
+.dropdown-menu a:hover {
+    background-color: rgba(255, 170, 119, 0.5);
+    /* Màu nền khi hover */
 }
 
 .nav-logout {
@@ -58,9 +92,7 @@
     text-align: center;
     padding: 14px 20px;
     font-size: 14px;
-    /* Đặt kích thước chữ giống với Liên Hệ */
     text-decoration: none;
-    /* Bỏ gạch chân */
     cursor: pointer;
     /* Đổi con trỏ khi hover */
 }

@@ -1,5 +1,6 @@
 import userModel from "../models/userModel.js";
-import fs from 'fs'; // Chỉ sử dụng nếu bạn cần quản lý hình ảnh của người dùng
+import mongoose from 'mongoose';
+import jwt from "jsonwebtoken"; // Đảm bảo đã nhập jwt
 
 // Thêm người dùng
 const addUser = async (req, res) => {
@@ -16,8 +17,8 @@ const addUser = async (req, res) => {
         await user.save();
         res.json({ success: true, message: "User Added" });
     } catch (error) {
-        console.log(error);
-        res.json({ success: false, message: "Error" });
+        console.error(error);
+        res.json({ success: false, message: error.message || "Error" });
     }
 };
 
@@ -27,8 +28,8 @@ const listUsers = async (req, res) => {
         const users = await userModel.find({});
         res.json({ success: true, data: users });
     } catch (error) {
-        console.log(error);
-        res.json({ success: false, message: "Error" });
+        console.error(error);
+        res.json({ success: false, message: error.message || "Error" });
     }
 };
 
@@ -43,8 +44,8 @@ const removeUser = async (req, res) => {
             res.json({ success: false, message: "User không tồn tại" });
         }
     } catch (error) {
-        console.log(error);
-        res.json({ success: false, message: "Error" });
+        console.error(error);
+        res.json({ success: false, message: error.message || "Error" });
     }
 };
 
@@ -59,6 +60,10 @@ const updateUser = async (req, res) => {
         role: req.body.role // Thêm trường role
     };
 
+    if (req.body.password) {
+        userData.password = req.body.password; // Chỉ băm nếu có trường mật khẩu
+    }
+
     try {
         const updatedUser = await userModel.findByIdAndUpdate(id, userData, { new: true });
         if (!updatedUser) {
@@ -67,8 +72,8 @@ const updateUser = async (req, res) => {
 
         res.json({ success: true, message: "User Updated", data: updatedUser });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ success: false, message: "Error" });
+        console.error(error);
+        res.status(500).json({ success: false, message: error.message || "Error" });
     }
 };
 
@@ -90,26 +95,62 @@ const updateUserRole = async (req, res) => {
 
         res.json({ success: true, message: "Vai trò đã được cập nhật", data: updatedUser });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ success: false, message: "Lỗi khi cập nhật vai trò" });
+        console.error(error);
+        res.status(500).json({ success: false, message: error.message || "Lỗi khi cập nhật vai trò" });
     }
 };
 
-
+// Lấy thông tin người dùng
+// Lấy thông tin người dùng
 const getUserById = async (req, res) => {
     const { id } = req.params;
+
+    // Kiểm tra xem id có phải là một ObjectId hợp lệ không
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ success: false, message: 'ID không hợp lệ' });
+    }
+
     try {
         const user = await userModel.findById(id);
         if (!user) {
-            return res.status(404).json({ success: false, message: 'User not found' });
+            return res.status(404).json({ success: false, message: 'User không tồn tại' });
         }
-        res.json({ success: true, data: user });
+
+        // Chỉ trả về thông tin cần thiết, không bao gồm mật khẩu
+        const { password, ...userInfo } = user.toObject(); // Chuyển đổi sang đối tượng JS
+        res.json({ success: true, data: userInfo });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ success: false, message: 'Error fetching user' });
+        console.error(error);
+        res.status(500).json({ success: false, message: error.message || 'Error fetching user' });
     }
 };
 
-export { addUser, listUsers, removeUser, updateUser, updateUserRole, getUserById };
 
+// Hàm lấy thông tin người dùng dựa trên token
+const getUserInfo = async (req, res) => {
+    const userId = req.user._id; // Lấy userId từ token
 
+    try {
+        const user = await userModel.findById(userId);
+        if (!user) {
+            return res.status(404).json({ success: false, message: "Người dùng không tồn tại" });
+        }
+
+        // Chỉ trả về thông tin cần thiết, không bao gồm mật khẩu
+        const { password, ...userInfo } = user.toObject(); // Chuyển đổi sang đối tượng JS
+        res.json({ success: true, data: userInfo });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: error.message || 'Lỗi khi lấy thông tin người dùng' });
+    }
+};
+
+export {
+    addUser,
+    listUsers,
+    removeUser,
+    updateUser,
+    updateUserRole,
+    getUserById,
+    getUserInfo
+};
