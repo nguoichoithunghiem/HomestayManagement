@@ -45,6 +45,15 @@ import register2 from "./register2.jpg";
 import news2 from "./news2.jpg";
 import nenhomestay2 from "./nenhomestay2.jpg";
 import introduce2 from "./introduce2.jpg";
+import nenbooking from "./nenbooking.jpg";
+import placewhite from "./placewhite.png";
+import phonewhite from "./phonewhite.png";
+import sentwhite from "./sentwhite.png";
+import world from "./public.png";
+import hotline from "./hotline.png";
+import travel from "./travel.png";
+import nendetail from "./nendetail.jpg";
+import hinhhomestay from "./hinhhomestay.png";
 export const assets = {
   image,
   gioithieu1,
@@ -93,4 +102,13 @@ export const assets = {
   news2,
   nenhomestay2,
   introduce2,
+  nenbooking,
+  placewhite,
+  phonewhite,
+  sentwhite,
+  world,
+  hotline,
+  travel,
+  nendetail,
+  hinhhomestay,
 };

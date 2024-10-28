@@ -1,0 +1,194 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Italianno&display=swap");
+
+body {
+    font-family: inter;
+}
+
+.booking-khoiheader {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.booking-nenpage {
+    width: 100%;
+    height: 100vh;
+}
+
+.booking-text-overlay {
+    font-family: Inter;
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 80px;
+    font-weight: bold;
+}
+
+.booking-contact {
+    margin-top: 2%;
+    margin-left: 1%;
+    width: auto;
+    height: auto;
+    /* background-color: aqua; */
+    display: flex;
+}
+
+.booking-kichthuoc {
+    display: flex;
+}
+
+.booking-contact1 {
+    width: 330px;
+    height: 376px;
+    background-color: #eeeeee;
+}
+
+.contact2,
+.contact3,
+.contact4 {
+    margin-left: 56px;
+}
+
+.booking-ellipse-icon {
+    width: 180px;
+    height: 180px;
+    position: relative;
+    /* Đặt vị trí tương đối để img và ellipse có thể căn tuyệt đối */
+    /* background-color: aqua; */
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+.booking-ellipse {
+    width: 180px;
+    height: 180px;
+    border-radius: 100%;
+    background-color: #ff6b00;
+    position: absolute;
+    /* Đặt vị trí tuyệt đối để chồng lên nhau */
+    top: 0;
+    left: 0;
+}
+
+.booking-ellipse-icon img {
+    position: absolute;
+    /* Đặt img chồng lên thẻ booking-ellipse */
+    object-fit: cover;
+    /* Đảm bảo ảnh không bị méo */
+    top: 50%;
+    /* Đặt img giữa theo chiều dọc */
+    left: 50%;
+    /* Đặt img giữa theo chiều ngang */
+    transform: translate(-50%, -50%);
+    /* Di chuyển img về chính giữa */
+}
+
+.booking-title-contact {
+    font-size: 40px;
+    font-weight: 600;
+    color: #ff6b00;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.booking-note-title {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.booking-content2 {
+    margin-top: 2%;
+    display: flex;
+    margin-left: 1%;
+}
+
+.booking-column {
+    width: 745px;
+    height: 1600px;
+    font-size: 35px;
+    line-height: 70px;
+}
+
+.booking-column1 {
+    text-align: center;
+}
+
+.booking-tenphong {
+    color: #ff6b00;
+}
+
+.booking-column2 {
+    background-color: #eaf1f1;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.booking-icon-phone {
+    display: flex;
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 500px;
+    height: 177px;
+    border: 2px solid #ff6b00;
+    border-radius: 10px;
+}
+
+.booking-phone {
+    line-height: 50px;
+    font-weight: bold;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.booking-iconphone {
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.booking-icon-travel {
+    margin-top: 50px;
+}
+
+.booking-hoten {
+    width: 730px;
+    height: auto;
+}
+
+.booking-tieude {
+    display: flex;
+}
+
+.booking-kitu {
+    color: red;
+    font-size: 20px;
+}
+
+.booking-timkiem {
+    margin-top: 15px;
+    width: 730px;
+    height: 70px;
+    border-radius: 5px;
+    font-size: 30px;
+    padding-left: 10px;
+}
+
+.booking-button {
+    width: 250px;
+    height: 80px;
+    background-color: #ff6b00;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    margin: auto;
+    justify-content: center;
+    /* Căn giữa theo chiều ngang */
+    align-items: center;
+    /* Căn giữa theo chiều dọc */
+    text-align: center;
+    margin-top: 30px;
+}

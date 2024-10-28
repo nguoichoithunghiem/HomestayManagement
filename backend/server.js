@@ -6,6 +6,7 @@ import authRouter from "./routes/authRoute.js";
 import homestayRouter from "./routes/homestayRoute.js";
 import roomRouter from "./routes/roomRoute.js";
 import userRouter from "./routes/userRoutes.js";
+import bookingRouter from "./routes/bookingRoutes.js"; // Import booking router
 
 // Cấu hình môi trường
 dotenv.config();
@@ -23,7 +24,8 @@ connectDB();
 app.use("/api/auth", authRouter);
 app.use("/api/homestay", homestayRouter);
 app.use("/api/room", roomRouter);
-app.use("/api/users", userRouter)
+app.use("/api/users", userRouter);
+app.use("/api/bookings", bookingRouter); // Thêm route cho booking
 
 // Route cho ảnh
 app.use("/images", express.static('uploads'));

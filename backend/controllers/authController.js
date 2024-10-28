@@ -5,7 +5,7 @@ import bcrypt from "bcrypt"; // Import bcrypt để mã hóa mật khẩu
 
 // Đăng ký tài khoản
 export const registerUser = async (req, res) => {
-    const { fullName, email, password, phoneNumber, address, role } = req.body;
+    const { fullName, email, password, phoneNumber, address, role = 'user' } = req.body; // Mặc định vai trò là 'user'
 
     try {
         const existingUser = await userModel.findOne({ email });
@@ -103,3 +103,31 @@ export const loginAdmin = async (req, res) => {
         res.status(500).json({ success: false, message: "Lỗi khi đăng nhập" });
     }
 };
+
+// Đổi mật khẩu
+export const changePassword = async (req, res) => {
+    const { currentPassword, newPassword } = req.body;
+
+    try {
+        const user = await userModel.findById(req.user.userId);
+        if (!user) {
+            return res.status(404).json({ success: false, message: "Người dùng không tìm thấy" });
+        }
+
+        const isMatch = await bcrypt.compare(currentPassword, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ success: false, message: "Mật khẩu hiện tại không đúng" });
+        }
+
+        // Hash mật khẩu mới
+        user.password = await bcrypt.hash(newPassword, 10); // Mã hóa mật khẩu mới
+        await user.save(); // Lưu thay đổi vào cơ sở dữ liệu
+
+        res.status(200).json({ success: true, message: "Đổi mật khẩu thành công" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Có lỗi xảy ra khi đổi mật khẩu" });
+    }
+};
+
+

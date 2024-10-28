@@ -1,0 +1,136 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Italianno&display=swap");
+
+body {
+    font-family: inter;
+}
+
+.detail-khoiheader {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.detail-nenpage {
+    width: 100%;
+    height: 100vh;
+}
+
+.detail-text-overlay {
+    font-family: Inter;
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 80px;
+    font-weight: bold;
+}
+
+.detail-hinhanh-gia {
+    display: flex;
+    margin-left: 30px;
+}
+
+.detail-name-homestay {
+    font-weight: 500;
+    font-size: 70px;
+}
+
+.detail-khoi {
+    width: 700px;
+    height: auto;
+    /* background-color: aquamarine; */
+    margin-top: 30px;
+}
+
+.detail-khoi1 img {
+    height: 800px;
+    width: 800px;
+    margin-top: 30px;
+}
+
+.detail-khoi2 {
+    margin-left: 50px;
+    display: flex;
+    /* Thêm thuộc tính này */
+    justify-content: center;
+    /* Căn giữa theo chiều ngang */
+    align-items: center;
+    /* Căn giữa theo chiều dọc */
+    flex-direction: column;
+    /* Đặt hướng chiều thành cột */
+}
+
+.detail-price {
+    font-size: 40px;
+    margin-bottom: 30px;
+}
+
+.detail-buttonLH {
+    width: 300px;
+    height: 80px;
+    background-color: #ff6b00;
+    border-radius: 5px;
+    display: flex;
+    /* Thêm thuộc tính này */
+    justify-content: center;
+    /* Căn giữa theo chiều ngang */
+    align-items: center;
+    /* Căn giữa theo chiều dọc */
+    margin: 0 auto;
+}
+
+.detail-buttonLH div {
+    font-size: 40px;
+    color: white;
+    font-weight: bold;
+}
+
+.detail-content2 {
+    margin-left: 30px;
+    margin-top: 30px;
+    width: auto;
+    height: auto;
+    /* background-color: aqua; */
+}
+
+.detail-title {
+    margin-top: 30px;
+    font-size: 40px;
+}
+
+table {
+    margin-top: 30px;
+    width: 50%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 15px;
+    text-align: left;
+}
+
+.detail-description {
+    margin-top: 30px;
+}
+
+.detail-table {
+    font-size: 20px;
+}
+
+.detail-description1 {
+    width: 1150px;
+    margin-top: 10px;
+    font-size: 25px;
+    line-height: 30px;
+    font-weight: 400;
+}
+
+hr {
+    margin-top: 30px;
+}
+
+.detail-comment {
+    font-weight: bold;
+}

@@ -34,7 +34,7 @@ const Navbar = ({ user, onLogout }) => {
             {isDropdownOpen && (
               <div className="dropdown-menu">
                 <Link to="/booking-history" onClick={() => setIsDropdownOpen(false)}>Lịch sử đặt phòng</Link>
-                <Link to="/account-info" onClick={() => setIsDropdownOpen(false)}>Thông tin tài khoản</Link>
+                <Link to="/profile-user" onClick={() => setIsDropdownOpen(false)}>Thông tin tài khoản</Link>
                 <Link to="/change-password" onClick={() => setIsDropdownOpen(false)}>Đổi mật khẩu</Link>
                 <div className="nav-logout" onClick={onLogout}>Đăng Xuất</div>
               </div>

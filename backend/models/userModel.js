@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema(
         password: { type: String, required: true },
         role: { type: String, default: "user" }, // Vai trò (user/admin)
     },
-    { timestamps: true }
+    { timestamps: true }, { minimize: false }
 );
 
 // Hash mật khẩu trước khi lưu vào database

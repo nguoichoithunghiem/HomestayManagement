@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import "./HomeStay.css";
 import { assets } from "../../assets/assets";
 
@@ -70,13 +71,13 @@ const HomeStay = () => {
               <h1>{homestay.homestayName}</h1>
               <div className="homestay-diadiem homestay-margin-content1">
                 <img src={assets.iconplace} alt="" />
-                <div>{homestay.location}</div>
+                <div>Địa chỉ: {homestay.homestayAddress}</div>
               </div>
               <div className="homestay-margin-content1">
-                {homestay.description}
+                Thuê: {homestay.homestayCategory}
               </div>
               <div className="homestay-button-xemthem homestay-margin-content1">
-                Xem thêm
+                <Link to={`/homestay/${homestay._id}`}>Xem thêm</Link>
               </div>
             </div>
             <img src={`http://localhost:5000/images/${encodeURIComponent(homestay.homestayImage)}`} alt={homestay.homestayName} />

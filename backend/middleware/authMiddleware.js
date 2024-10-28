@@ -46,17 +46,18 @@ export const checkRole = (roles) => {
 
 // Middleware kiểm tra token cho người dùng mà không cần vai trò
 export const verifyToken = (req, res, next) => {
-    const token = req.headers.authorization?.split(" ")[1];
+    const token = req.headers['authorization']?.split(' ')[1];
 
     if (!token) {
-        return res.status(401).json({ success: false, message: "Không có quyền truy cập" });
+        return res.status(403).json({ message: 'Token không hợp lệ' });
     }
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         if (err) {
-            return res.status(403).json({ success: false, message: "Token không hợp lệ" });
+            return res.status(403).json({ message: 'Token không hợp lệ' });
         }
-        req.user = decoded; // Lưu thông tin người dùng vào request
+
+        req.user = user; // Lưu thông tin người dùng vào req
         next();
     });
 };
