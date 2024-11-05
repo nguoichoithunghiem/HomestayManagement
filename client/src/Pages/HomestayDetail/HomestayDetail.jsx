@@ -47,11 +47,13 @@ const HomestayDetail = () => {
                 <div className="detail-khoi detail-khoi2">
                     <div className="detail-price-button">
                         <div className="detail-price">Giá từ: {homestay.homestayPrice} VNĐ</div>
-                        {homestay.homestayCategory === "Nguyên căn" && (
-                            <div className="detail-buttonLH">
-                                <Link to={`/booking/${homestay._id}`}>Liên hệ</Link>
-                            </div>
-                        )}
+                        <div className="detail-buttonLH">
+                            {homestay.homestayCategory === "nguyên căn" ? (
+                                <Link to={`/booking/${homestay._id}`}>Đặt Homestay</Link>
+                            ) : (
+                                <Link to={`/booking/${homestay._id}`}>Đặt Phòng</Link>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -86,46 +88,6 @@ const HomestayDetail = () => {
                     <div className="detail-description1">Giá tầm trung</div>
                     <hr />
                 </div>
-            </div>
-            <div className="footer">
-                <div className="contentoffooter">
-                    <div className="cot cot1">
-                        <div>Về chúng tôi</div>
-                        <div className="chuxam">
-                            <div>Khám phá các địa điểm yêu thích của bạn tại Hạ Long</div>
-                        </div>
-                    </div>
-                    <div className="cot cot2">
-                        <div>Menu</div>
-                        <div className="chuxam">
-                            <div>Trang chủ</div>
-                            <div>Giới thiệu</div>
-                            <div>HomeStay</div>
-                            <div>Tin tức</div>
-                            <div>Liên hệ</div>
-                            <div>Đăng ký</div>
-                            <div>Đăng nhập</div>
-                        </div>
-                    </div>
-                    <div className="cot cot3">
-                        <div>Thông tin địa chỉ</div>
-                        <div className="diachi">
-                            <div className="tenduongvaicon">
-                                <img className="iconplacecolor" src={assets.iconplacecolor} alt="" />
-                                <div className="tenduong">Đ. Hoàng Quốc Việt, Hùng Thắng, Thành phố Hạ Long, Quảng Ninh</div>
-                            </div>
-                            <div className="phonevaicon">
-                                <img className="iconplacecolor" src={assets.iconphone} alt="" />
-                                <div className="sophone">0123456798</div>
-                            </div>
-                            <div className="sendvaicon">
-                                <img className="iconplacecolor" src={assets.iconsend} alt="" />
-                                <div className="email">vantruong@gmail.com</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <img src={assets.nenfooter} alt="" />
             </div>
         </div>
     );

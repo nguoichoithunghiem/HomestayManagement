@@ -21,7 +21,10 @@ const Sidebar = ({ isAuthenticated }) => {
                             <img src={assets.add_icon} alt="" />
                             <p>Quản lý Người dùng</p>
                         </NavLink>
-
+                        <NavLink to='/list-booking' className="sidebar-option">
+                            <img src={assets.add_icon} alt="" />
+                            <p>Quản lý Đặt Phòng</p>
+                        </NavLink>
                     </>
                 )}
             </div>

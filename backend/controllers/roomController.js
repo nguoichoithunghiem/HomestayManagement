@@ -116,7 +116,8 @@ const updateRoomStatus = async (req, res) => {
 const fetchRoom = async (req, res) => {
     const { id } = req.params; // Lấy ID từ params
     try {
-        const room = await roomModel.findById(id); // Hoặc phương thức tương ứng
+        // Sử dụng populate để lấy thông tin homestay
+        const room = await roomModel.findById(id).populate('homestayId', 'homestayName');
         if (!room) {
             return res.status(404).json({ success: false, message: 'Room not found' });
         }
@@ -126,5 +127,7 @@ const fetchRoom = async (req, res) => {
         res.status(500).json({ success: false, message: "Error fetching room" });
     }
 };
+
+
 
 export { addRoom, listRooms, removeRoom, updateRoom, updateRoomStatus, fetchRoom };

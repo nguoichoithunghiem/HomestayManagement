@@ -11,9 +11,10 @@ import BookingHistory from "./Pages/BookingHistory/BookingHistory";
 import ChangePassword from "./Pages/ChangePassword/ChangePassword";
 import Room from "./Pages/Room/Room";
 import UserProfile from "./Pages/UserProfile/UserProfile";
-import Footer from "./Components/Footer/Footer"; // Thêm dòng này
 import HomestayDetail from "./Pages/HomestayDetail/HomestayDetail";
 import Booking from "./Pages/Booking/Booking";
+import RoomDetail from "./Pages/RoomDetail/RoomDetail";
+import Footerx from "./Components/Footer/Footer"
 
 const App = () => {
   const [user, setUser] = useState(() => {
@@ -41,9 +42,11 @@ const App = () => {
           <Route path="/profile-user" element={<UserProfile user={user} />} />
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/rooms" element={<Room />} />
+          <Route path="/room/:id" element={<RoomDetail />} />
           <Route path="/homestay/:id" element={<HomestayDetail />} />
           <Route path="/booking/:homestayId" element={<Booking />} />
         </Routes>
+        <Footerx />
       </div>
 
     </>
