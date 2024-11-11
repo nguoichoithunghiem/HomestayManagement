@@ -1,31 +1,39 @@
-import mongoose from "mongoose";
-import bcrypt from "bcrypt";
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
+// Định nghĩa schema cho User
 const userSchema = new mongoose.Schema(
     {
         fullName: { type: String, required: true },
         email: { type: String, required: true, unique: true },
-        phoneNumber: { type: String, required: true }, // Đảm bảo đúng tên field
+        phoneNumber: { type: String, required: true },
         address: { type: String, required: true },
         password: { type: String, required: true },
-        role: { type: String, default: "user" }, // Vai trò (user/admin)
+        role: { type: String, default: 'user' }, // user hoặc admin
     },
-    { timestamps: true }, { minimize: false }
+    { timestamps: true, minimize: false }
 );
 
-// Hash mật khẩu trước khi lưu vào database
-userSchema.pre("save", async function (next) {
-    if (!this.isModified("password")) return next(); // Nếu không sửa đổi mật khẩu, bỏ qua
-    this.password = await bcrypt.hash(this.password, 10);
+// Mã hóa mật khẩu trước khi lưu vào DB
+userSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) return next(); // Nếu không thay đổi mật khẩu thì không cần mã hóa lại
+    this.password = await bcrypt.hash(this.password, 10); // Sử dụng bcrypt để mã hóa mật khẩu
     next();
 });
 
 // Phương thức kiểm tra mật khẩu
-userSchema.methods.comparePassword = async function (password) {
-    return await bcrypt.compare(password, this.password);
+userSchema.methods.matchPassword = async function (enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// Khởi tạo model User
-const userModel = mongoose.models.user || mongoose.model("user", userSchema);
+// Phương thức tạo JWT Token
+userSchema.methods.generateAuthToken = function () {
+    const payload = { id: this._id, fullName: this.fullName, email: this.email, role: this.role };
+    return jwt.sign(payload, 'secretKey', { expiresIn: '1h' }); // Tạo JWT token với thời gian sống là 1 giờ
+};
 
-export default userModel;
+// Tạo model User từ schema
+const User = mongoose.model('User', userSchema);
+
+export default User;

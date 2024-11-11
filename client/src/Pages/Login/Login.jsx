@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-import { assets } from "../../assets/assets";
+import { assets } from "../../assets/assets"; // Đảm bảo bạn đã có assets như ảnh background
 import axios from "axios";
 
 const Login = ({ setUser }) => {
@@ -13,7 +13,7 @@ const Login = ({ setUser }) => {
 
   const handleLogin = async () => {
     setLoading(true);
-    setMessage("");
+    setMessage(""); // Reset thông báo mỗi khi bắt đầu đăng nhập
 
     // Kiểm tra thông tin đầu vào
     if (!email || !password) {
@@ -29,10 +29,11 @@ const Login = ({ setUser }) => {
       });
 
       // Kiểm tra phản hồi
-      if (response.data.success) {
+      if (response.data.token) {
         setUser(response.data.user.fullName);
-        localStorage.setItem("token", response.data.token); // Lưu token nếu cần
-        navigate("/");
+        localStorage.setItem("token", response.data.token); // Lưu token vào localStorage
+        localStorage.setItem("userId", response.data.user.userId);  // Lưu userId vào localStorage
+        navigate("/");  // Chuyển hướng về trang chủ sau khi đăng nhập thành công
       } else {
         setMessage(response.data.message || "Đăng nhập thất bại!");
       }
@@ -46,13 +47,17 @@ const Login = ({ setUser }) => {
 
   return (
     <div>
+      {/* Header - Background image */}
       <div className="login-khoiheader">
         <img className="login-nenpage" src={assets.login2} alt="Background" />
         <div className="login-text-overlay">Đăng nhập</div>
       </div>
-      <div className="login-body">
-        {message && <div className="login-message">{message}</div>}
 
+      {/* Form body */}
+      <div className="login-body">
+        {message && <div className="login-message">{message}</div>} {/* Hiển thị thông báo lỗi */}
+
+        {/* Email input */}
         <div className="login-element">
           <div className="login-tieude">
             <div>Email</div>
@@ -60,12 +65,14 @@ const Login = ({ setUser }) => {
           </div>
           <input
             className="login-timkiem"
-            type="text"
+            type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
+
+        {/* Password input */}
         <div className="login-element">
           <div className="login-tieude">
             <div>Mật khẩu</div>
@@ -74,11 +81,13 @@ const Login = ({ setUser }) => {
           <input
             className="login-timkiem"
             type="password"
-            placeholder="Mật Khẩu"
+            placeholder="Mật khẩu"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+
+        {/* Login Button */}
         <div
           className={`login-button ${loading ? "loading" : ""}`}
           onClick={handleLogin}
@@ -87,9 +96,11 @@ const Login = ({ setUser }) => {
           {loading ? "Đang xử lý..." : "Đăng nhập"}
         </div>
       </div>
+
+      {/* Footer */}
       <div className="footer">
         <div className="contentoffooter">
-          {/* Nội dung footer như trước */}
+          {/* Nội dung footer (tùy chỉnh theo yêu cầu) */}
         </div>
         <img src={assets.nenfooter} alt="Footer background" />
       </div>

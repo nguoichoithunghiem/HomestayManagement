@@ -1,7 +1,7 @@
 // src/UserProfile.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './UserProfile.css'
+import './UserProfile.css';
 
 const UserProfile = () => {
     const [user, setUser] = useState(null);
@@ -9,19 +9,15 @@ const UserProfile = () => {
 
     useEffect(() => {
         const fetchUserData = async () => {
-            const token = localStorage.getItem('token'); // Giả định bạn lưu token trong localStorage
-            if (!token) {
-                setError('Bạn chưa đăng nhập');
+            const userId = localStorage.getItem('userId');  // Lấy userId từ localStorage
+            if (!userId) {
+                setError('Không tìm thấy userId');
                 return;
             }
 
             try {
-                const response = await axios.get('http://localhost:5000/api/auth/me', {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                setUser(response.data.user);
+                const response = await axios.get(`http://localhost:5000/api/auth/profile?userId=${userId}`);
+                setUser(response.data);
             } catch (err) {
                 setError('Không thể lấy thông tin người dùng');
             }
@@ -45,10 +41,8 @@ const UserProfile = () => {
             <p><strong>Email:</strong> {user.email}</p>
             <p><strong>Số Điện Thoại:</strong> {user.phoneNumber}</p>
             <p><strong>Địa Chỉ:</strong> {user.address}</p>
-            <p><strong>Vai Trò:</strong> {user.role}</p>
         </div>
     );
 };
-
 
 export default UserProfile;

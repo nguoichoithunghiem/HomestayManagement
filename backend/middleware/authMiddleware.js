@@ -1,64 +1,39 @@
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
+import User from '../models/userModel.js';
 
-// Middleware kiểm tra token và xác thực quyền admin
-export const verifyAdmin = (req, res, next) => {
-    const token = req.headers.authorization?.split(" ")[1];
+// Middleware xác thực JWT (verifyToken)
+export const verifyToken = async (req, res, next) => {
+    // Lấy token từ header 'Authorization'
+    const token = req.header('Authorization')?.replace('Bearer ', '');  // Kiểm tra Authorization header
 
+    // Nếu không có token trong header
     if (!token) {
-        return res.status(401).json({ success: false, message: "Không có quyền truy cập" });
+        return res.status(401).json({ message: 'Vui lòng đăng nhập để truy cập thông tin.' });
     }
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-        if (err || decoded.role !== 'admin') {
-            return res.status(403).json({ success: false, message: "Chỉ admin mới có thể truy cập" });
+    try {
+        // Giải mã token với secret key
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);  // Sử dụng secret key trong môi trường
+
+        // Kiểm tra xem token có chứa ID người dùng không
+        if (!decoded || !decoded.id) {
+            return res.status(401).json({ message: 'Token không hợp lệ.' });
         }
-        req.user = decoded; // Lưu thông tin người dùng vào request để sử dụng trong các route
-        next();
-    });
-};
 
-// Middleware kiểm tra token cho người dùng (có thể là user hoặc admin)
-export const verifyUser = (req, res, next) => {
-    const token = req.headers.authorization?.split(" ")[1];
+        // Tìm kiếm người dùng trong DB sử dụng ID từ token
+        const user = await User.findById(decoded.id);
+        
+        if (!user) {
+            return res.status(401).json({ message: 'Người dùng không tồn tại.' });
+        }
 
-    if (!token) {
-        return res.status(401).json({ success: false, message: "Không có quyền truy cập" });
+        // Gán thông tin người dùng vào req.user để sử dụng trong các route tiếp theo
+        req.user = user;  // Đây là nơi lưu thông tin người dùng vào request
+        next();  // Tiếp tục với các route tiếp theo
+    } catch (error) {
+        // Log lỗi để dễ dàng kiểm tra nếu có sự cố
+        console.error(error);  
+        // Nếu token không hợp lệ hoặc đã hết hạn
+        return res.status(401).json({ message: 'Token không hợp lệ hoặc đã hết hạn.' });
     }
-
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-        if (err) {
-            return res.status(403).json({ success: false, message: "Token không hợp lệ" });
-        }
-        req.user = decoded; // Lưu thông tin người dùng vào request
-        next();
-    });
 };
-
-// Middleware kiểm tra vai trò người dùng
-export const checkRole = (roles) => {
-    return (req, res, next) => {
-        if (!req.user || !roles.includes(req.user.role)) {
-            return res.status(403).json({ success: false, message: "Không đủ quyền truy cập" });
-        }
-        next();
-    };
-};
-
-// Middleware kiểm tra token cho người dùng mà không cần vai trò
-export const verifyToken = (req, res, next) => {
-    const token = req.headers['authorization']?.split(' ')[1];
-
-    if (!token) {
-        return res.status(403).json({ message: 'Token không hợp lệ' });
-    }
-
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-        if (err) {
-            return res.status(403).json({ message: 'Token không hợp lệ' });
-        }
-
-        req.user = user; // Lưu thông tin người dùng vào req
-        next();
-    });
-};
-

@@ -1,92 +1,130 @@
-// controllers/authController.js
-import userModel from "../models/userModel.js";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt"; // Import bcrypt để mã hóa mật khẩu
+import User from '../models/userModel.js'; // Import model User
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 
-// Đăng ký tài khoản
+// Đăng ký người dùng
 export const registerUser = async (req, res) => {
-    const { fullName, email, password, phoneNumber, address, role = 'user' } = req.body; // Mặc định vai trò là 'user'
+    const { fullName, email, phoneNumber, address, password } = req.body;
 
     try {
-        const existingUser = await userModel.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ success: false, message: "Email đã tồn tại" });
+        // Kiểm tra xem email đã tồn tại chưa
+        const userExists = await User.findOne({ email });
+        if (userExists) {
+            return res.status(400).json({ message: 'Email đã được đăng ký.' });
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new userModel({ fullName, email, password: hashedPassword, phoneNumber, address, role });
-        await newUser.save();
-        res.status(201).json({ success: true, message: "Đăng ký thành công" });
+        // Tạo người dùng mới
+        const user = new User({ fullName, email, phoneNumber, address, password });
+        await user.save();
+
+        // Trả về thông tin người dùng và thông báo thành công
+        res.status(201).json({
+            message: 'Đăng ký thành công!',
+            user: { fullName: user.fullName, email: user.email, role: user.role },
+        });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ success: false, message: "Lỗi khi đăng ký" });
+        res.status(500).json({ message: 'Lỗi server, thử lại sau.' });
     }
 };
 
-// Đăng nhập cho người dùng bình thường
+// Đăng nhập người dùng
+// backend/controllers/authController.js
 export const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const user = await userModel.findOne({ email });
+        // Kiểm tra người dùng có tồn tại không
+        const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ success: false, message: "Email hoặc mật khẩu không đúng" });
+            return res.status(400).json({ message: 'Tài khoản không tồn tại.' });
         }
 
-        const isMatch = await bcrypt.compare(password, user.password);
+        // Kiểm tra mật khẩu
+        const isMatch = await user.matchPassword(password);
         if (!isMatch) {
-            return res.status(400).json({ success: false, message: "Email hoặc mật khẩu không đúng" });
+            return res.status(400).json({ message: 'Mật khẩu không chính xác.' });
         }
 
-        const token = jwt.sign(
-            { userId: user._id, role: user.role },
-            process.env.JWT_SECRET,
-            { expiresIn: "1d" }
-        );
+        // Tạo JWT token
+        const token = user.generateAuthToken();
 
+        // Trả về thông tin người dùng và token
         res.status(200).json({
-            success: true,
-            message: "Đăng nhập thành công",
+            message: 'Đăng nhập thành công!',
             token,
             user: {
-                id: user._id,
+                userId: user._id,  // Trả về userId
                 fullName: user.fullName,
                 email: user.email,
-                role: user.role
+                phoneNumber: user.phoneNumber,
+                address: user.address,
             }
         });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ success: false, message: "Lỗi khi đăng nhập" });
+        res.status(500).json({ message: 'Lỗi server, thử lại sau.' });
     }
 };
 
+
+// Lấy thông tin người dùng (Không cần xác thực)
+export const getUserProfile = async (req, res) => {
+    try {
+        const userId = req.query.userId; // Lấy userId từ query params
+
+        if (!userId) {
+            return res.status(400).json({ message: 'Cần có userId để lấy thông tin người dùng.' });
+        }
+
+        const user = await User.findById(userId); // Tìm người dùng trong DB theo ID
+
+        if (!user) {
+            return res.status(404).json({ message: 'Người dùng không tồn tại.' });
+        }
+
+        // Trả về thông tin người dùng
+        res.status(200).json({
+            fullName: user.fullName,
+            email: user.email,
+            phoneNumber: user.phoneNumber,
+            address: user.address,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Lỗi server, thử lại sau.' });
+    }
+};
 // Đăng nhập cho admin
 export const loginAdmin = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const user = await userModel.findOne({ email });
+        // Kiểm tra email người dùng
+        const user = await User.findOne({ email });  // Sửa từ userModel thành User
         if (!user) {
             return res.status(400).json({ success: false, message: "Email hoặc mật khẩu không đúng" });
         }
 
+        // So sánh mật khẩu đã mã hóa
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ success: false, message: "Email hoặc mật khẩu không đúng" });
         }
 
-        // Kiểm tra vai trò
+        // Kiểm tra vai trò của người dùng, chỉ cho phép admin đăng nhập
         if (user.role !== 'admin') {
             return res.status(403).json({ success: false, message: "Chỉ admin mới có thể đăng nhập" });
         }
 
+        // Tạo JWT token cho admin
         const token = jwt.sign(
             { userId: user._id, role: user.role },
             process.env.JWT_SECRET,
-            { expiresIn: "1d" }
+            { expiresIn: "1d" } // Token hết hạn sau 1 ngày
         );
 
+        // Trả về thông tin admin và token
         res.status(200).json({
             success: true,
             message: "Đăng nhập admin thành công",
@@ -103,31 +141,3 @@ export const loginAdmin = async (req, res) => {
         res.status(500).json({ success: false, message: "Lỗi khi đăng nhập" });
     }
 };
-
-// Đổi mật khẩu
-export const changePassword = async (req, res) => {
-    const { currentPassword, newPassword } = req.body;
-
-    try {
-        const user = await userModel.findById(req.user.userId);
-        if (!user) {
-            return res.status(404).json({ success: false, message: "Người dùng không tìm thấy" });
-        }
-
-        const isMatch = await bcrypt.compare(currentPassword, user.password);
-        if (!isMatch) {
-            return res.status(400).json({ success: false, message: "Mật khẩu hiện tại không đúng" });
-        }
-
-        // Hash mật khẩu mới
-        user.password = await bcrypt.hash(newPassword, 10); // Mã hóa mật khẩu mới
-        await user.save(); // Lưu thay đổi vào cơ sở dữ liệu
-
-        res.status(200).json({ success: true, message: "Đổi mật khẩu thành công" });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: "Có lỗi xảy ra khi đổi mật khẩu" });
-    }
-};
-
-
