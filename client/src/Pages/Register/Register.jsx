@@ -15,6 +15,24 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  // Hàm kiểm tra email hợp lệ
+  const isValidEmail = (email) => {
+    const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return regex.test(email);
+  };
+
+  // Hàm kiểm tra số điện thoại hợp lệ (giả sử phải có 10 chữ số)
+  const isValidPhoneNumber = (phoneNumber) => {
+    const regex = /^[0-9]{10}$/;
+    return regex.test(phoneNumber);
+  };
+
+  // Hàm kiểm tra mật khẩu (ít nhất 6 ký tự và có chữ và số)
+  const isValidPassword = (password) => {
+    const regex = /^(?=.*[a-zA-Z])(?=.*\d).{6,}$/;
+    return regex.test(password);
+  };
+
   // Hàm xử lý đăng ký
   const handleRegister = async (e) => {
     e.preventDefault(); // Ngừng mặc định form gửi đi
@@ -25,6 +43,24 @@ const Register = () => {
     // Kiểm tra thông tin đầu vào
     if (!fullName || !email || !phoneNumber || !address || !password || !confirmPassword) {
       setMessage("Vui lòng điền đầy đủ thông tin!");
+      setLoading(false);
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      setMessage("Email không hợp lệ!");
+      setLoading(false);
+      return;
+    }
+
+    if (!isValidPhoneNumber(phoneNumber)) {
+      setMessage("Số điện thoại không hợp lệ (phải có 10 chữ số)!");
+      setLoading(false);
+      return;
+    }
+
+    if (!isValidPassword(password)) {
+      setMessage("Mật khẩu phải có ít nhất 6 ký tự, bao gồm cả chữ và số!");
       setLoading(false);
       return;
     }

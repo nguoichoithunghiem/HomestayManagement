@@ -14,7 +14,7 @@ const Navbar = ({ user, onLogout }) => {
     <div className="navbar">
       <div className="logo">
         <h1>Van Truong</h1>
-        <h2>HOTEL AGENCY</h2>
+        <h2>HONMESTAY AGENCY</h2>
       </div>
       <div className="nav-links">
         <Link to="/">Trang chủ</Link>

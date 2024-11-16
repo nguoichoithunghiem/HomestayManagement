@@ -22,16 +22,25 @@ userSchema.pre('save', async function (next) {
     next();
 });
 
+
 // Phương thức kiểm tra mật khẩu
 userSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
+
 
 // Phương thức tạo JWT Token
 userSchema.methods.generateAuthToken = function () {
     const payload = { id: this._id, fullName: this.fullName, email: this.email, role: this.role };
     return jwt.sign(payload, 'secretKey', { expiresIn: '1h' }); // Tạo JWT token với thời gian sống là 1 giờ
 };
+userSchema.methods.changePassword = async function (newPassword) {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(newPassword, salt);
+    await this.save(); // Lưu thay đổi vào cơ sở dữ liệu
+  };
+
+
 
 // Tạo model User từ schema
 const User = mongoose.model('User', userSchema);

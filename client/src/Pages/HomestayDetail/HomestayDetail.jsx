@@ -10,6 +10,17 @@ const HomestayDetail = () => {
     const [homestay, setHomestay] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    // Kiểm tra xem người dùng có đăng nhập hay không (dựa vào token trong localStorage)
+    useEffect(() => {
+        const token = localStorage.getItem("token"); // Hoặc sessionStorage.getItem("token") tuỳ vào cách lưu
+        if (token) {
+            setIsLoggedIn(true);
+        } else {
+            setIsLoggedIn(false);
+        }
+    }, []);
 
     useEffect(() => {
         const fetchHomestay = async () => {
@@ -46,12 +57,17 @@ const HomestayDetail = () => {
                 </div>
                 <div className="detail-khoi detail-khoi2">
                     <div className="detail-price-button">
-                        <div className="detail-price">Giá từ: {homestay.homestayPrice} VNĐ</div>
+                        <div className="detail-price">Giá từ: {homestay.homestayPrice}.000 VNĐ</div>
                         <div className="detail-buttonLH">
-                            {homestay.homestayCategory === "nguyên căn" ? (
-                                <Link to={`/booking/${homestay._id}`}>Đặt Homestay</Link>
+                            {/* Kiểm tra xem người dùng đã đăng nhập chưa */}
+                            {isLoggedIn ? (
+                                homestay.homestayCategory === "nguyên căn" ? (
+                                    <Link to={`/booking/${homestay._id}`}>Đặt Homestay</Link>
+                                ) : (
+                                    <Link to={`/booking/${homestay._id}`}>Đặt Phòng</Link>
+                                )
                             ) : (
-                                <Link to={`/booking/${homestay._id}`}>Đặt Phòng</Link>
+                                <Link to="/login">Đăng nhập để đặt phòng</Link>
                             )}
                         </div>
                     </div>
@@ -76,7 +92,7 @@ const HomestayDetail = () => {
                             </tr>
                             <tr>
                                 <td>Giá từ</td>
-                                <td>{homestay.homestayPrice} VNĐ</td>
+                                <td>{homestay.homestayPrice}.000VNĐ</td>
                             </tr>
                         </tbody>
                     </table>

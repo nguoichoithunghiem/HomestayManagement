@@ -15,7 +15,8 @@ const Navbar = ({ isAuthenticated, onLogout }) => {
 
     return (
         <div className='navbar'>
-            <img className='logo' src={assets.logo} alt="Logo" />
+                    <h1>Van Truong</h1>
+                    <h2>HONMESTAY AGENCY</h2>
             {isAuthenticated ? (
                 <div className='navbar-user'>
                     <button className='logout-button' onClick={handleLogout}>Đăng xuất</button>

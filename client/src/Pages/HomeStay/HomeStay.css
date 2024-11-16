@@ -1,6 +1,10 @@
 .filter-bar {
   margin-top: 50px;
 }
+.filter-bar .option1{
+  margin-left: 8%;
+  margin-right: 2%;
+}
 
 .homestay-content1 {
   margin-top: 50px;
@@ -27,7 +31,7 @@
 }
 
 .homestay-gia {
-  width: 120px;
+  width: 200px;
   height: 50px;
   color: white;
   background-color: #ff6b00;

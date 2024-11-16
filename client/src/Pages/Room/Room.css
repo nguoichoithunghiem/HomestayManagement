@@ -18,6 +18,7 @@
     margin: 10px;
     width: 460px;
     position: relative;
+    margin-bottom: 300px;
 }
 
 .room-box img {
@@ -26,7 +27,7 @@
 }
 
 .room-price {
-    width: 200px;
+    width: 300px;
     height: 50px;
     color: white;
     background-color: #ff6b00;

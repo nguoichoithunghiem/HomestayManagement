@@ -25,6 +25,10 @@ const Sidebar = ({ isAuthenticated }) => {
                             <img src={assets.add_icon} alt="" />
                             <p>Quản lý Đặt Phòng</p>
                         </NavLink>
+                        <NavLink to='/list-post' className="sidebar-option">
+                            <img src={assets.add_icon} alt="" />
+                            <p>Quản lý Bài Viết</p>
+                        </NavLink>
                     </>
                 )}
             </div>

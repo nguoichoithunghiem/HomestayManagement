@@ -40,7 +40,6 @@ const ListBooking = ({ url }) => {
         }
     };
 
-
     // Cập nhật trạng thái đặt phòng
     const updateStatus = async (bookingId, newStatus) => {
         try {
@@ -103,6 +102,8 @@ const ListBooking = ({ url }) => {
                         <th>Ngày Trả Phòng</th>
                         <th>Số Khách</th>
                         <th>Trạng Thái</th>
+                        <th>Homestay</th> {/* Cột mới để hiển thị tên homestay */}
+                        <th>Số Phòng</th> {/* Thêm cột số phòng */}
                         <th>Hành Động</th>
                     </tr>
                 </thead>
@@ -124,8 +125,12 @@ const ListBooking = ({ url }) => {
                                     >
                                         <option value="Processing">Đang xử lý</option>
                                         <option value="Booking Successful">Đặt phòng thành công</option>
+                                        <option value="Checked In">Đã nhận phòng</option>
+                                        <option value="Checked Out">Đã trả phòng</option> {/* Thêm trạng thái "Checked Out" */}
                                     </select>
                                 </td>
+                                <td>{item.homestayId?.homestayName}</td>
+                                <td>{item.roomNumber || 'Chưa có phòng'}</td> {/* Hiển thị số phòng nếu có */}
                                 <td>
                                     <NavLink to={`/update-booking/${item._id}`}>
                                         <button className="edit-button">Sửa</button>
@@ -136,7 +141,7 @@ const ListBooking = ({ url }) => {
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="9" style={{ textAlign: 'center' }}>Không có đặt phòng nào.</td>
+                            <td colSpan="11" style={{ textAlign: 'center' }}>Không có đặt phòng nào.</td>
                         </tr>
                     )}
                 </tbody>

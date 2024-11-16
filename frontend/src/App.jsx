@@ -15,6 +15,9 @@ import Adduser from './admin/User/AddUser/Adduser';
 import UpdateUser from './admin/User/UpdateUser/UpdateUser';
 import ListBooking from './admin/Booking/ListBooking/ListBooking';
 import UpdateBooking from './admin/Booking/UpdateBooking/UpdateBooking';
+import AddPost from './admin/Post/addPost/addPost';
+import ListPost from './admin/Post/ListPost/ListPost';
+import UpdatePost from './admin/homestay/UpdateHomestay/UpdateHomestay';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -58,6 +61,11 @@ const App = () => {
           <Route path="/update-user/:id" element={isAuthenticated ? <UpdateUser url={url} /> : <Navigate to="/admin/login" />} />
           <Route path="/list-booking" element={isAuthenticated ? <ListBooking url={url} /> : <Navigate to="/admin/login" />} />
           <Route path="/update-booking/:id" element={isAuthenticated ? <UpdateBooking url={url} /> : <Navigate to="/admin/login" />} />
+          <Route path="/add-post" element={isAuthenticated ? <AddPost url={url} /> : <Navigate to="/admin/login" />} />
+          <Route path="/list-post" element={isAuthenticated ? <ListPost url={url} /> : <Navigate to="/admin/login" />} />
+          <Route path="/update-posts/:id" element={isAuthenticated ? <UpdatePost url={url} /> : <Navigate to="/admin/login" />} />
+
+          
         </Routes>
       </div>
     </div>

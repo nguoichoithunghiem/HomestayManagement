@@ -12,7 +12,6 @@ const UpdateRoom = ({ url }) => {
         roomType: '',
         roomPrice: '',
         roomDescription: '',
-        homestayId: '',
         roomStatus: 'available',
         roomImage: null // To hold the image file
     });
@@ -50,7 +49,6 @@ const UpdateRoom = ({ url }) => {
         formData.append('roomType', room.roomType);
         formData.append('roomPrice', room.roomPrice);
         formData.append('roomDescription', room.roomDescription);
-        formData.append('homestayId', room.homestayId);
         formData.append('roomStatus', room.roomStatus);
         if (room.roomImage) {
             formData.append('roomImage', room.roomImage); // Append the image file if it exists
@@ -121,16 +119,7 @@ const UpdateRoom = ({ url }) => {
                         required
                     />
                 </div>
-                <div className='form-group'>
-                    <label>Homestay ID:</label>
-                    <input
-                        type='text'
-                        name='homestayId'
-                        value={room.homestayId}
-                        onChange={onChangeHandler}
-                        required
-                    />
-                </div>
+
                 <div className='form-group'>
                     <label>Status:</label>
                     <select

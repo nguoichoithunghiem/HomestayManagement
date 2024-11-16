@@ -19,21 +19,89 @@ const Booking = () => {
     });
     const [loading, setLoading] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");  // State to hold error messages
 
+    // Lấy ID người dùng từ localStorage hoặc bất kỳ phương thức nào khác
+    const userId = localStorage.getItem("userId");
+
+    // Hàm kiểm tra email hợp lệ
+    const isValidEmail = (email) => {
+        const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        return regex.test(email);
+    };
+
+    // Hàm kiểm tra số điện thoại hợp lệ (giả sử số điện thoại phải có 10 chữ số)
+    const isValidPhoneNumber = (phoneNumber) => {
+        const regex = /^[0-9]{10}$/;
+        return regex.test(phoneNumber);
+    };
+
+    // Hàm kiểm tra ngày nhận phòng và trả phòng
+    const isValidDateRange = (checkInDate, checkOutDate) => {
+        return new Date(checkInDate) < new Date(checkOutDate);
+    };
+
+    // Hàm kiểm tra số lượng khách
+    const isValidNumberOfGuests = (numberOfGuests) => {
+        return numberOfGuests > 0;
+    };
+
+    // Hàm xử lý sự thay đổi trong form
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
+    // Hàm xử lý form submit
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+        setErrorMessage("");  // Reset error message on form submission
+
+        // Kiểm tra các trường bắt buộc
+        if (!formData.fullName || !formData.email || !formData.phoneNumber || !formData.address ||
+            !formData.checkInDate || !formData.checkOutDate || !formData.numberOfGuests) {
+            setErrorMessage("Vui lòng điền đầy đủ thông tin!");
+            setLoading(false);
+            return;
+        }
+
+        // Kiểm tra email hợp lệ
+        if (!isValidEmail(formData.email)) {
+            setErrorMessage("Email không hợp lệ!");
+            setLoading(false);
+            return;
+        }
+
+        // Kiểm tra số điện thoại hợp lệ
+        if (!isValidPhoneNumber(formData.phoneNumber)) {
+            setErrorMessage("Số điện thoại không hợp lệ (phải có 10 chữ số)!");
+            setLoading(false);
+            return;
+        }
+
+        // Kiểm tra ngày trả phòng phải sau ngày nhận phòng
+        if (!isValidDateRange(formData.checkInDate, formData.checkOutDate)) {
+            setErrorMessage("Ngày trả phòng phải sau ngày nhận phòng!");
+            setLoading(false);
+            return;
+        }
+
+        // Kiểm tra số lượng khách hợp lệ
+        if (!isValidNumberOfGuests(formData.numberOfGuests)) {
+            setErrorMessage("Số lượng khách phải lớn hơn 0!");
+            setLoading(false);
+            return;
+        }
 
         try {
+            // Gửi dữ liệu lên API
             const response = await axios.post(`http://localhost:5000/api/bookings`, {
                 ...formData,
                 homestayId,
+                userId,
             });
+
             if (response.data.success) {
                 setSuccessMessage("Đặt phòng thành công!");
                 setFormData({
@@ -45,7 +113,7 @@ const Booking = () => {
                     checkOutDate: "",
                     numberOfGuests: 1,
                     notes: "",
-                    roomNumber: "",
+                    roomNumber: "", // Reset roomNumber
                 });
             } else {
                 alert(response.data.message);
@@ -63,46 +131,12 @@ const Booking = () => {
                 <img className="booking-nenpage" src={assets.nenbooking} alt="" />
                 <div className="booking-text-overlay">Đặt phòng</div>
             </div>
-            <div className="booking-contact">
-                <div className="booking-kichthuoc">
-                    <div className="booking-contact1 contact1">
-                        <div className="booking-ellipse-icon">
-                            <div className="booking-ellipse"></div>
-                            <img src={assets.placewhite} alt="" />
-                        </div>
-                        <div className="booking-title-contact">Address</div>
-                        <div className="booking-note-title">123 Lê Duẩn, Q1, TP.HCM</div>
-                    </div>
-                    <div className="booking-contact1 contact2">
-                        <div className="booking-ellipse-icon">
-                            <div className="booking-ellipse"></div>
-                            <img src={assets.phonewhite} alt="" />
-                        </div>
-                        <div className="booking-title-contact">Contact Number</div>
-                        <div className="booking-note-title">+ 1235 4678 89</div>
-                    </div>
-                    <div className="booking-contact1 contact3">
-                        <div className="booking-ellipse-icon">
-                            <div className="booking-ellipse"></div>
-                            <img src={assets.sentwhite} alt="" />
-                        </div>
-                        <div className="booking-title-contact">Email Address</div>
-                        <div className="booking-note-title">info@yoursite.com</div>
-                    </div>
-                    <div className="booking-contact1 contact4">
-                        <div className="booking-ellipse-icon">
-                            <div className="booking-ellipse"></div>
-                            <img src={assets.world} alt="" />
-                        </div>
-                        <div className="booking-title-contact">Website</div>
-                        <div className="booking-note-title">yoursite.com</div>
-                    </div>
-                </div>
-            </div>
+            
             <div className="booking-content2">
                 <div className="booking-column booking-column1">
+                    {/* Homestay information */}
                     <div className="booking-tenphong">Phòng Luxury</div>
-                    <div>HomeStay: chất lượng và san trọng</div>
+                    <div>HomeStay: chất lượng và sang trọng</div>
                     <div>Địa điểm: Gần những điểm du lịch</div>
                     <div>Số lượng người tối đa: 4 </div>
                     <div>Giảm giá: 0% </div>
@@ -122,6 +156,7 @@ const Booking = () => {
                 <div className="booking-column booking-column2">
                     <h2>Thông tin đặt phòng</h2>
                     {successMessage && <div>{successMessage}</div>}
+                    {errorMessage && <div className="error-message">{errorMessage}</div>}
                     <form onSubmit={handleSubmit}>
                         <div className="booking-hoten">
                             <div className="booking-tieude">
@@ -225,23 +260,22 @@ const Booking = () => {
                                 required
                             />
                         </div>
+                        {/* Optional Room Number field */}
                         <div className="booking-hoten">
                             <div className="booking-tieude">
-                                <div>Số phòng (nếu có)</div>
+                                <div>Số phòng</div>
                             </div>
                             <input
                                 className="booking-timkiem"
                                 type="text"
                                 name="roomNumber"
-                                placeholder="Số phòng (nếu có)"
+                                placeholder="Số phòng (Nếu có)"
                                 value={formData.roomNumber}
                                 onChange={handleChange}
                             />
                         </div>
                         <div className="booking-hoten">
-                            <div className="booking-tieude">
-                                <div>Ghi chú</div>
-                            </div>
+                            <div className="booking-tieude">Ghi chú</div>
                             <textarea
                                 className="booking-timkiem"
                                 name="notes"
@@ -250,8 +284,8 @@ const Booking = () => {
                                 onChange={handleChange}
                             />
                         </div>
-                        <button className="booking-button" type="submit" disabled={loading}>
-                            {loading ? "Đang đặt..." : "Đặt phòng"}
+                        <button type="submit" disabled={loading}>
+                            {loading ? "Đang xử lý..." : "Đặt phòng"}
                         </button>
                     </form>
                 </div>

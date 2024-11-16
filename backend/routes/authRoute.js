@@ -1,5 +1,5 @@
 import express from 'express';
-import { registerUser, loginUser, getUserProfile, loginAdmin } from '../controllers/authController.js'; // Import các controller
+import { registerUser, loginUser, getUserProfile, loginAdmin, changePassword } from '../controllers/authController.js'; // Import các controller
 import User from '../models/userModel.js';
 
 const router = express.Router();
@@ -14,5 +14,7 @@ router.post('/login', loginUser);
 router.get('/profile', getUserProfile);
 
 router.post('/login-admin', loginAdmin);
+
+router.put('/change-password/:userId', changePassword);
 
 export default router;

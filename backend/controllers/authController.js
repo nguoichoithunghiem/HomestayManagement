@@ -141,3 +141,29 @@ export const loginAdmin = async (req, res) => {
         res.status(500).json({ success: false, message: "Lỗi khi đăng nhập" });
     }
 };
+
+export const changePassword = async (req, res) => {
+    const { userId } = req.params;
+    const { newPassword } = req.body;
+  
+    if (!newPassword) {
+      return res.status(400).json({ message: 'Mật khẩu mới không được để trống' });
+    }
+  
+    try {
+      // Tìm người dùng theo userId
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: 'Người dùng không tồn tại' });
+      }
+  
+      // Thay đổi mật khẩu
+      await user.changePassword(newPassword);
+  
+      // Trả về thông báo thành công
+      res.status(200).json({ message: 'Mật khẩu đã được thay đổi thành công' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Đã xảy ra lỗi, vui lòng thử lại' });
+    }
+  };
