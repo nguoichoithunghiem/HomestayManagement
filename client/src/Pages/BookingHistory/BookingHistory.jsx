@@ -69,7 +69,7 @@ const BookingHistory = () => {
         };
 
         try {
-            const response = await axios.post(`http://localhost:5000/api/bookings/${bookingId}/review`, reviewPayload);
+            const response = await axios.post(`https://homestaymanagement-backend.onrender.com/api/bookings/${bookingId}/review`, reviewPayload);
             alert('Đánh giá của bạn đã được gửi!');
 
             // Cập nhật trạng thái đã đánh giá trong frontend
