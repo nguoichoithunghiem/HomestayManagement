@@ -11,7 +11,7 @@ import UpdateRoom from './admin/room/UpdateRoom/UpdateRoom';
 import ListRoom from './admin/room/ListRoom/ListRoom';
 import AdminLogin from './admin/AdminLogin/AdminLogin';
 import ListUser from './admin/User/ListUser/ListUser';
-import Adduser from './admin/User/AddUser/Adduser';
+import Adduser from './admin/User/AddUser/AddUser';
 import UpdateUser from './admin/User/UpdateUser/UpdateUser';
 import ListBooking from './admin/Booking/ListBooking/ListBooking';
 import UpdateBooking from './admin/Booking/UpdateBooking/UpdateBooking';
