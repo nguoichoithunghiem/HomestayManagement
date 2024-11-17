@@ -25,7 +25,7 @@ const HomestayDetail = () => {
     useEffect(() => {
         const fetchHomestay = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/homestay/${id}`);
+                const response = await axios.get(`https://homestaymanagement-backend.onrender.com/api/homestay/${id}`);
                 if (response.data.success) {
                     setHomestay(response.data.data);
                 } else {
