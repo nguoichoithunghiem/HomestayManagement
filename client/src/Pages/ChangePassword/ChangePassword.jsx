@@ -24,7 +24,7 @@ const ChangePassword = () => {
     }
 
     try {
-      const response = await axios.put(`http://localhost:5000/api/auth/change-password/${userId}`, {
+      const response = await axios.put(`https://homestaymanagement-backend.onrender.com/api/auth/change-password/${userId}`, {
         currentPassword,
         newPassword
       });
