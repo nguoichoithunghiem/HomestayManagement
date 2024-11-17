@@ -14,7 +14,7 @@ const RoomDetail = () => {
     useEffect(() => {
         const fetchRoom = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/room/${id}`);
+                const response = await axios.get(`https://homestaymanagement-backend.onrender.com/api/room/${id}`);
                 if (response.data.success) {
                     setRoom(response.data.data);
                 } else {
