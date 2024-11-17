@@ -96,7 +96,7 @@ const Booking = () => {
 
         try {
             // Gửi dữ liệu lên API
-            const response = await axios.post(`http://localhost:5000/api/bookings`, {
+            const response = await axios.post(`https://homestaymanagement-backend.onrender.com/api/bookings`, {
                 ...formData,
                 homestayId,
                 userId,
