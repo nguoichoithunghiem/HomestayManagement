@@ -137,7 +137,7 @@ const HomeStay = () => {
                 <Link to={`/homestay/${homestay._id}`}>Xem thêm</Link>
               </div>
             </div>
-            <img src={`http://localhost:5000/images/${encodeURIComponent(homestay.homestayImage)}`} alt={homestay.homestayName} />
+            <img src={`https://homestaymanagement-backend.onrender.com/images/${encodeURIComponent(homestay.homestayImage)}`} alt={homestay.homestayName} />
           </div>
         ))}
       </div>
