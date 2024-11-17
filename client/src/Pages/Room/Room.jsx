@@ -18,7 +18,7 @@ const Room = () => {
     useEffect(() => {
         const fetchRooms = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/room/list');
+                const response = await axios.get('https://homestaymanagement-backend.onrender.com/api/room/list');
                 const availableRooms = response.data.data.filter(room => room.roomStatus === 'available');
                 setRooms(availableRooms);
                 setFilteredRooms(availableRooms); // Mặc định hiển thị tất cả
@@ -140,7 +140,7 @@ const Room = () => {
                                 <Link to={`/room/${room._id}`}>Xem thêm</Link>
                             </div>
                         </div>
-                        <img src={`http://localhost:5000/images/${encodeURIComponent(room.roomImage)}`} alt={room.roomDescription} />
+                        <img src={`https://homestaymanagement-backend.onrender.com/images/${encodeURIComponent(room.roomImage)}`} alt={room.roomDescription} />
                     </div>
                 ))}
             </div>
