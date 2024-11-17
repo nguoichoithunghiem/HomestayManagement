@@ -5,7 +5,7 @@ import { assets } from "../../assets/assets";
 
 const News = () => {
   const [posts, setPosts] = useState([]); // State để lưu danh sách bài viết
-  const url = "http://localhost:5000"; // Địa chỉ API của bạn (cập nhật theo đúng URL của bạn)
+  const url = "https://homestaymanagement-backend.onrender.com"; // Địa chỉ API của bạn (cập nhật theo đúng URL của bạn)
 
   // Lấy dữ liệu bài viết từ API khi component mount
   useEffect(() => {
