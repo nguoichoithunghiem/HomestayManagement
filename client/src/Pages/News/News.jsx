@@ -52,7 +52,7 @@ const News = () => {
                 {post.postImage && (
                   <img
                     className="news-item-image"
-                    src={`http://localhost:5000/images/${post.postImage}`}
+                    src={`https://homestaymanagement-client.onrender.com/images/${post.postImage}`}
                     alt={post.title}
                   />
                 )}
