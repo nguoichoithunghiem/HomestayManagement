@@ -20,7 +20,7 @@ const BookingHistory = () => {
         // Gọi API để lấy danh sách đặt phòng
         const fetchBookingHistory = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/bookings/user-history/${storedUserId}`);
+                const response = await axios.get(`https://homestaymanagement-backend.onrender.com/api/bookings/user-history/${storedUserId}`);
                 setBookings(response.data.data);
             } catch (err) {
                 setError("Không thể tải lịch sử đặt phòng");
