@@ -1,11 +1,11 @@
 import express from "express";
-import { 
-    createBooking, 
-    getBookings, 
-    updateStatus, 
-    getBookingById, 
-    updateBooking, 
-    removeBooking, 
+import {
+    createBooking,
+    getBookings,
+    updateStatus,
+    getBookingById,
+    updateBooking,
+    removeBooking,
     getBookingHistoryByUserId // Import hàm getUserBookingHistory
 } from "../controllers/bookingController.js";
 

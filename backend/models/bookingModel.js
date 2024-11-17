@@ -13,7 +13,7 @@ const bookingSchema = new mongoose.Schema({
     roomNumber: { type: String, required: false }, // Optional
     status: {
         type: String,
-        enum: ['Processing', 'Booking Successful', 'Checked In','Checked Out'],
+        enum: ['Processing', 'Booking Successful', 'Checked In', 'Checked Out'],
         default: 'Processing'
     },
     userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' }

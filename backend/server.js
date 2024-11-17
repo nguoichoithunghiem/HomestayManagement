@@ -8,6 +8,7 @@ import roomRouter from "./routes/roomRoute.js";
 import userRouter from "./routes/userRoutes.js";
 import bookingRouter from "./routes/bookingRoutes.js"; // Import booking router
 import postRoute from "./routes/postRoute.js"
+import reviewRoute from "./routes/reviewRoute.js"
 
 // Cấu hình môi trường
 dotenv.config();
@@ -28,6 +29,9 @@ app.use("/api/room", roomRouter);
 app.use("/api/users", userRouter);
 app.use("/api/bookings", bookingRouter); // Thêm route cho booking
 app.use("/api/posts", postRoute);
+app.use('/api/bookings', reviewRoute);
+app.use('/api/reviews', reviewRoute);  // Thêm route cho review thay vì /api/bookings
+
 
 
 // Route cho ảnh
