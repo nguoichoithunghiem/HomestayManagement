@@ -18,7 +18,7 @@ const HomeStay = () => {
   useEffect(() => {
     const fetchHomestays = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/homestay/list');
+        const response = await axios.get('https://homestaymanagement-backend.onrender.com/api/homestay/list');
         // Lọc homestays chỉ hiển thị những cái có status là 'available'
         const availableHomestays = response.data.data.filter(homestay => homestay.status === 'available');
         setHomestays(availableHomestays);
