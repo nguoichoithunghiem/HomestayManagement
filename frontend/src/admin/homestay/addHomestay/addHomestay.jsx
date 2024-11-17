@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './addHomestay.css';  // Giả sử bạn sử dụng cùng một kiểu dáng
+import './addHomestay.css'   // Giả sử bạn sử dụng cùng một kiểu dáng
 import { assets } from '../../../assets/assets'; // Thư viện assets của bạn
 import axios from "axios";
 import { toast } from 'react-toastify';
