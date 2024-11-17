@@ -16,7 +16,7 @@ const UserProfile = () => {
             }
 
             try {
-                const response = await axios.get(`http://localhost:5000/api/auth/profile?userId=${userId}`);
+                const response = await axios.get(`https://homestaymanagement-backend.onrender.com/api/auth/profile?userId=${userId}`);
                 setUser(response.data);
             } catch (err) {
                 setError('Không thể lấy thông tin người dùng');
