@@ -42,7 +42,7 @@ const RoomDetail = () => {
             <div className="detail-hinhanh-gia">
                 <div className="detail-khoi detail-khoi1">
                     <h1 className="detail-name-room">Phòng {room.roomNumber}</h1>
-                    <img src={`http://localhost:5000/images/${encodeURIComponent(room.roomImage)}`} alt={room.roomDescription} />
+                    <img src={`https://homestaymanagement-backend.onrender.com/images/${encodeURIComponent(room.roomImage)}`} alt={room.roomDescription} />
                 </div>
                 <div className="detail-khoi detail-khoi2">
                     <div className="detail-price-button">
