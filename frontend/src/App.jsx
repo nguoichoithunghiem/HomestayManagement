@@ -22,7 +22,7 @@ import ListReview from './admin/Reivew/ListReview/ListReview';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const url = "http://localhost:5000";
+  const url = "https://homestaymanagement-backend.onrender.com";
 
   const handleLogin = () => {
     setIsAuthenticated(true);
